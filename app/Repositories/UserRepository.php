@@ -5,6 +5,7 @@ namespace App\Repositories;
 
 
 use App\Contracts\UserRepositoryInterface;
+use App\Models\Tweet;
 use App\Models\User;
 
 class UserRepository implements UserRepositoryInterface
@@ -14,13 +15,17 @@ class UserRepository implements UserRepositoryInterface
      */
     protected $model;
 
+    protected $tweetModel;
+
     /**
      * UserRepository constructor.
      * @param User $user
+     * @param Tweet $tweet
      */
-    public function __construct(User $user)
+    public function __construct(User $user , Tweet $tweet)
     {
         $this->model = $user;
+        $this->tweetModel = $tweet;
     }
 
     /**
@@ -69,14 +74,24 @@ class UserRepository implements UserRepositoryInterface
      */
     public function CheckIfTargetFollowerAlreadyFollowed($follower, $following_id)
     {
-        $following = $follower->with(['followers' => function ($query) use ($following_id) {
-            $query->where('follower_id', $following_id);
+        $following = $follower->with(['following' => function ($query) use ($following_id) {
+            $query->where('user_id', $following_id);
         }])->first();
 
-        if ($following->followers->count() > 0) {
+        if ($following->following->count() > 0) {
             return false;
         } else return true;
 
+    }
+
+    /**
+     * @param User $user
+     * @return mixed
+     */
+    public function getFollowerTweets(User $user)
+    {
+       $followingsIds = $user->following->pluck('id');
+      return  $this->tweetModel->whereIn('user_id',$followingsIds)->orderBy('created_at', 'desc')->simplePaginate();
     }
 
 }

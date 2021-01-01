@@ -58,5 +58,15 @@ class UserService implements UserServiceInterface
         return  $this->repository->followUser($follower,$id);
     }
 
+    /**
+     * @return mixed
+     */
+    public function getUserTimeLine()
+    {
+        $user = Auth::user();
+        return $this->repository->getFollowerTweets($user);
+
+    }
+
 
 }

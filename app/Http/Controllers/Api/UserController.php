@@ -53,4 +53,21 @@ class UserController extends Controller
             ])->setStatusCode(Response::HTTP_BAD_REQUEST);
         }
     }
+
+    public function getTimeline()
+    {
+        try {
+            $tweets = $this->service->getUserTimeLine();
+            return response()->json([
+                'status' => __('messages.success'),
+                'response' => $tweets,
+            ])->setStatusCode(Response::HTTP_OK);
+
+        } catch (\Exception $exception) {
+            return response()->json([
+                'status' => __('messages.failed'),
+                'response' => $exception->getMessage(),
+            ])->setStatusCode(Response::HTTP_BAD_REQUEST);
+        }
+    }
 }

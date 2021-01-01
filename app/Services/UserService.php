@@ -7,6 +7,7 @@ namespace App\Services;
 use App\Contracts\UserRepositoryInterface;
 use App\Contracts\UserServiceInterface;
 use App\Traits\CommonMethods;
+use Illuminate\Support\Facades\Auth;
 
 class UserService implements UserServiceInterface
 {
@@ -44,6 +45,17 @@ class UserService implements UserServiceInterface
     public function find($attribute,$value)
     {
         return $this->repository->findBy($attribute,$value);
+    }
+
+    /**
+     * @param $id
+     * @return mixed
+     */
+    public function follow($id)
+    {
+        // TODO: Implement follow() method.
+        $follower = Auth::user();
+        return  $this->repository->followUser($follower,$id);
     }
 
 

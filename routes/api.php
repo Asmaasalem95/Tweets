@@ -21,7 +21,9 @@ Route::middleware(['lang'])->group(function () {
 
     Route::middleware(['auth:sanctum'])->group(function () {
         Route::post('tweets/store', [\App\Http\Controllers\Api\TweetController::class, 'store']);
+        Route::post('follow/{user_id}', [\App\Http\Controllers\Api\UserController::class, 'followUser']);
 
     });
+
 });
 

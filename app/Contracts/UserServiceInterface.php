@@ -10,4 +10,6 @@ interface UserServiceInterface
 
     public function find($attribute,$value);
 
+    public function follow($id);
+
 }

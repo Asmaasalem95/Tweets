@@ -35,20 +35,20 @@ class UserController extends Controller
            if ($userFollowed)
            {
                return response()->json([
-                   'status' => 'Success',
-                   'response' => 'User Followed Successfully',
+                   'status' => __('messages.success'),
+                   'response' =>  __('messages.user_followed'),
                ])->setStatusCode(Response::HTTP_OK);
            }
            else {
                return response()->json([
-                   'status' => 'Failed',
-                   'response' => 'User already Followed',
+                   'status' => __('messages.failed'),
+                   'response' => __('messages.user_already_followed'),
                ])->setStatusCode(Response::HTTP_OK);
            }
 
         } catch (\Exception $exception) {
             return response()->json([
-                'status' => 'Failed',
+                'status' => __('messages.failed'),
                 'response' => $exception->getMessage(),
             ])->setStatusCode(Response::HTTP_BAD_REQUEST);
         }

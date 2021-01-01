@@ -35,8 +35,8 @@ class LoginController extends Controller
 
         if(!$user) {
             return response()->json([
-                'status' => 'Failed',
-                'response'=> "Failed! email not found",
+                'status' => __('messages.failed'),
+                'response'=> __('messages.email_not_found'),
             ])->setStatusCode(Response::HTTP_NOT_FOUND);
         }
 
@@ -45,14 +45,14 @@ class LoginController extends Controller
             $tokenResult = $user->createToken('authToken')->plainTextToken;
 
             return response()->json([
-                'status' => 'Success',
+                'status' =>  __('messages.success'),
                 'response'=> ['user'=>$user,'token'=>$tokenResult],
             ])->setStatusCode(Response::HTTP_OK);
         }
         else {
             return response()->json([
-                'status' => 'Failed',
-                'response'=> "Whoops! invalid password",
+                'status' => __('messages.failed'),
+                'response'=> __('messages.invalid_password'),
             ])->setStatusCode(Response::HTTP_OK);
         }
     }

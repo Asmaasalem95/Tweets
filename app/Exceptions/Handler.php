@@ -50,8 +50,8 @@ class Handler extends ExceptionHandler
     {
         if ($request->expectsJson()) {
             return response()->json([
-                'status' => 'Failed',
-                'response' => "Unauthenticated",
+                'status' => __('messages.failed'),
+                'response' =>__('messages.unauthenticated'),
             ])->setStatusCode(Response::HTTP_UNAUTHORIZED);
         } else {
             return route('login');

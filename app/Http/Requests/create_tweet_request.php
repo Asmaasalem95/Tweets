@@ -39,7 +39,7 @@ class create_tweet_request extends FormRequest
     protected function failedValidation(Validator $validator)
     {
         throw new HttpResponseException(response()->json([
-            'status' => 'Invalid inputs!',
+            'status' =>__('messages.invalid_inputs'),
             'response' => $validator->errors()->first(),
         ])->setStatusCode(JsonResponse::HTTP_UNPROCESSABLE_ENTITY));
     }

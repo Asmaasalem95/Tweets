@@ -40,13 +40,13 @@ class RegisterController extends Controller
 
             $user = $this->userService->create($data);
             return response()->json([
-                'status' => 'Success',
+                'status' => __('messages.success'),
                 'response' => $user,
             ])->setStatusCode(Response::HTTP_OK);
 
         } catch (\Exception $exception) {
             return response()->json([
-                'status' => 'Failed',
+                'status' => __('messages.failed'),
                 'response' => $exception->getMessage(),
             ])->setStatusCode(Response::HTTP_BAD_REQUEST);
         }

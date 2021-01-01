@@ -32,9 +32,7 @@ class UserService implements UserServiceInterface
     public function create($userData)
     {
         // TODO: Implement create() method.
-        $userData['image'] = $this->uploadFile($userData['image'],'users');
-        $user = $this->repository->store($userData);
-        return $userData;
+        return $this->repository->store($userData);
 
     }
 

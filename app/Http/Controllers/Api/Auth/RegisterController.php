@@ -1,9 +1,10 @@
 <?php
 
-namespace App\Http\Controllers\Api;
+namespace App\Http\Controllers\Api\Auth;
 
 use App\Contracts\UserServiceInterface;
 use App\Http\Requests\create_user_request;
+use App\Traits\CommonMethods;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Hash;
@@ -11,6 +12,7 @@ use App\Http\Controllers\Controller;
 
 class RegisterController extends Controller
 {
+    use CommonMethods;
     /**
      * @var UserServiceInterface
      */
@@ -34,6 +36,8 @@ class RegisterController extends Controller
         try {
             $data = $request->all();
             $data["password"] = Hash::make($request->password);
+            $data['image'] = $this->uploadFile($data['image'],'users');
+
             $user = $this->userService->create($data);
             return response()->json([
                 'status' => 'Success',

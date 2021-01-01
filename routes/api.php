@@ -14,8 +14,14 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-/*Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});*/
-Route::post('/register',[\App\Http\Controllers\Api\RegisterController::class,'register'])->name('register');
-Route::post('/login',[\App\Http\Controllers\Api\LoginController::class,'login'])->name('login');
+Route::middleware(['lang'])->group(function () {
+
+    Route::post('/register', [\App\Http\Controllers\Api\Auth\RegisterController::class, 'register'])->name('register');
+    Route::post('/login', [\App\Http\Controllers\Api\Auth\LoginController::class, 'login'])->name('login');
+
+    Route::middleware(['auth:sanctum'])->group(function () {
+        Route::post('tweets/store', [\App\Http\Controllers\Api\TweetController::class, 'store']);
+
+    });
+});
+

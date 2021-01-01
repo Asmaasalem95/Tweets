@@ -9,14 +9,14 @@ use Illuminate\Support\Facades\Storage;
 trait CommonMethods
 {
     /**
-     * @param $image
+     * @param $file
      * @param $path
      * @return bool
      */
-    private function uploadFile($image,$path)
+    private function uploadFile($file,$path)
     {
         // TODO: Implement uploadFile() method.
-        $path = Storage::disk('public')->put($path, $image);
+        $path = Storage::disk('public')->put($path, $file);
         return $path;
     }
 }

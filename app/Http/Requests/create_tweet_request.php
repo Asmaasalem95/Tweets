@@ -7,7 +7,7 @@ use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Http\JsonResponse;
 
-class create_user_request extends FormRequest
+class create_tweet_request extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -27,10 +27,8 @@ class create_user_request extends FormRequest
     public function rules()
     {
         return [
-            "name" => "required",
-            "email" => "required|email|unique:users",
-            "image" => "required|image",
-            "password" => "required",
+            'tweet'=>'required|max:140',
+            'file'=>'nullable|mimes:jpg,jpeg,png,avi,mp4'
         ];
     }
 
@@ -42,7 +40,8 @@ class create_user_request extends FormRequest
     {
         throw new HttpResponseException(response()->json([
             'status' => 'Invalid inputs!',
-            'response' => $validator->errors()->all(),
+            'response' => $validator->errors()->first(),
         ])->setStatusCode(JsonResponse::HTTP_UNPROCESSABLE_ENTITY));
     }
+
 }
